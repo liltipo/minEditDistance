@@ -1,54 +1,39 @@
-# AlgoReportTemplate
+# Comparación de Enfoques: Fuerza Bruta vs Programación Dinámica
 
-## Descripción
+Este repositorio está diseñado para comparar los tiempos de ejecución de dos enfoques para calcular la distancia de edición entre cadenas: **Fuerza Bruta** y **Programación Dinámica**. Los algoritmos están implementados en **C++**, y se utilizan **Python** para generar gráficos comparativos basados en los resultados experimentales obtenidos.
 
-Este repositorio contiene una plantilla en **LaTeX** diseñada específicamente para la creación de informes y reportes en la asignatura **Algoritmos y Complejidad** del Departamento de Informática de la **Universidad Técnica Federico Santa María (UTFSM)**. La plantilla está estructurada para facilitar la redacción de tareas, reportes de laboratorio y proyectos relacionados con el análisis de algoritmos.
+## Contenido del Repositorio
 
-### Modificación de la plantilla
+- **C++ Code**: Implementaciones de los algoritmos de Fuerza Bruta y Programación Dinámica para calcular la distancia de edición entre cadenas.
+- **Python Scripts**: Scripts para generar gráficos y visualizar los resultados experimentales de los algoritmos.
+- **Informe en LaTeX**: Un informe en formato LaTeX que describe el problema, los enfoques, los experimentos y los resultados obtenidos. Este informe también puede ser utilizado como plantilla para futuros trabajos o investigaciones.
 
-- Escriba sus datos en `author.tex`.
-- `preamble.tex` y `tarea_main.tex` NO debe ser modificados.
-- La estructura de archivos de `sections/` No debe ser modificada. Sólo agregue texto a los archivos existentes.
-- `references.bib` contiene las referencias bibliográficas. Agregue las suyas.
-- `tikz/` contiene archivos `.tex` con gráficos generados con `TikZ`. Puede agregar más archivos `.tex` con gráficos.
-- `tarea_main.pdf` es el archivo de salida generado por `pdflatex`.
-- `images/` contiene imágenes. Puede agregar más imágenes.
-- Elimine las figuras existentes y utilice las que generará en su informe.
+## Cómo Ejecutar el Proyecto
 
-```bash
-pablo@asus:~/Documents/AlgoReportTemplate$ tree
-.
-├── author.tex
-├── condiciones.tex
-├── images
-│   └── 4_impurezas_cantmax_size10.png
-├── preamble.tex
-├── README.md
-├── references.bib
-├── sections
-│   ├── abstract.tex
-│   ├── appendix1.tex
-│   ├── conclusions.tex
-│   ├── design_analysis_brute_force.tex
-│   ├── design_analysis_dynamic_programming.tex
-│   ├── design_analysis.tex
-│   ├── experiment_dataset.tex
-│   ├── experiment_intro.tex
-│   ├── experiment_results.tex
-│   ├── implementations.tex
-│   └── introduction.tex
-├── tarea_main.bcf-SAVE-ERROR
-├── tarea_main.pdf
-├── tarea_main.tex
-└── tikz
-    ├── plot1.tex
-    ├── plot2.tex
-    ├── plot3.tex
-    └── plot4.tex
+1. **Python**:
+   - Instala las dependencias necesarias (por ejemplo, `matplotlib`, `numpy`):
+     ```bash
+     pip install matplotlib numpy
+     ```
+     
+2. **Makefile**:
+   - Navega al directorio que contiene archivo Makefile.
+   - Compila y ejecuta los programas con el siguiente comando:
+     ```bash
+     make
+     ```
+   - Elimina el ejecutable y los archivos generados con:
+     ```bash
+     make
+     ```
 
-4 directories, 24 files
+3. **LaTeX**:
+   - El informe está escrito en LaTeX y puede ser compilado con cualquier editor LaTeX como Overleaf o un editor local (por ejemplo, VSCode con la extensión LaTeX).
+   - Para compilar el informe, ejecuta el siguiente comando:
+     ```bash
+     pdflatex tarea_main.tex
+     ```
 
-```
+## Propósito del Proyecto
 
-### Entrega
-Pararealizar su entrega, cambié en nombre del documento `.pdf` al formato especificado en condiciones y luego comprima el directorio con el formato especificado. 
+Este proyecto tiene como objetivo principal mostrar cómo la **Programación Dinámica** puede ser más eficiente que el enfoque de **Fuerza Bruta** en la resolución de problemas de distancia de edición. A través de la ejecución de experimentos y la comparación de los tiempos de ejecución de ambos enfoques, se proporcionan datos empíricos que respaldan esta afirmación.
