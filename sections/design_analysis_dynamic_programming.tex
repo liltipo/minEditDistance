@@ -1,0 +1,151 @@
+
+\epigraph{\textit{Dynamic programming is not about filling in tables. It's about smart recursion!}}{\citeauthor{algorithms_erickson}, \citeyear{algorithms_erickson} \cite{algorithms_erickson}}
+
+\begin{enumerate}[1)]
+    \item La solución recursiva consiste en comparar los caracteres de las dos cadenas de izquierda a derecha y realizar una de las 4 operaciones posibles. La función recursiva evalúa todas estas opciones en cada paso y elige la que tiene el menor costo. Si las cadenas ya coinciden en la posición actual, simplemente avanza a la siguiente posición sin realizar ninguna operación.
+
+    \item Para este problema, la recurrencia es:
+
+\[
+dp[i][j] = \min \left\{
+\begin{array}{ll}
+dp[i][j-1] + 1 & \text{(inserción)} \\
+dp[i-1][j] + 1 & \text{(eliminación)} \\
+dp[i-1][j-1] + 2 & \text{(sustitución)} \\
+dp[i-2][j-2] + 1 & \text{(transposición, si aplica)} \\
+\end{array}
+\right.
+\]
+
+\textbf{Casos base}:
+\begin{itemize}
+    \item Si una de las cadenas está vacía, el costo es simplemente la longitud de la otra cadena, ya que todas las operaciones serán inserciones o eliminaciones.
+    \item Si los caracteres actuales de ambas cadenas son iguales, no se realiza ninguna operación y el costo es el mismo que el de la subcadena anterior.
+\end{itemize}
+
+    
+\item \begin{itemize}
+    \item $dp[i][j]$ representa el costo de convertir los primeros $i$ caracteres de $S1$ en los primeros $j$ caracteres de $S2$.
+    \item Cada cálculo de $dp[i][j]$ depende de los resultados previos almacenados en $dp[i-1][j]$, $dp[i][j-1]$, $dp[i-1][j-1]$, o $dp[i-2][j-2]$ (en caso de transposición).
+\end{itemize}
+
+En lugar de recalcular estos valores repetidamente, los almacenamos en la tabla $dp$, de manera que cada subproblema se resuelve solo una vez.
+
+    
+    \item La estructura de datos que usamos es una \textbf{matriz bidimensional} ($dp[][]$), donde cada celda $dp[i][j]$ contiene el costo mínimo para convertir la subcadena $S1[0...i]$ en la subcadena $S2[0...j]$.
+
+El orden de cálculo es \textbf{de abajo hacia arriba}:
+\begin{itemize}
+    \item Primero, se llenan los casos base donde una de las cadenas es vacía.
+    \item Luego, para cada par de índices $i$ y $j$, se calculan las operaciones posibles y se toma la de menor costo.
+    \item Finalmente, el valor de $dp[m][n]$ nos da la distancia de edición final.
+\end{itemize}
+
+Esto garantiza que cada subproblema se resuelva en el orden correcto, ya que cada celda $dp[i][j]$ depende de otras celdas que ya han sido calculadas.
+\end{enumerate}
+
+\begin{algorithm}[H]
+    \SetKwProg{myproc}{Procedure}{}{}
+    \SetKwFunction{EditDistanceDP}{EditDistanceDP}
+    \SetKwFunction{Cases}{Cases}
+    
+    \DontPrintSemicolon
+    \footnotesize
+
+    % Definición del algoritmo principal
+    \myproc{\EditDistanceDP{S1, S2, m, n}}{
+        % Crear una matriz 2D para almacenar los valores de la distancia de edición
+        $dp \leftarrow$ \text{matriz 2D de tamaño } (m + 1, n + 1)\;
+
+        % Inicializar casos base
+        \For{i $\leftarrow$ 0 \KwTo m}{
+            \For{j $\leftarrow$ 0 \KwTo n}{
+                \uIf{i == 0}{
+                    $dp[i][j] \leftarrow j$\; % Insertar todos los caracteres de S2
+                }
+                \uElseIf{j == 0}{
+                    $dp[i][j] \leftarrow i$\; % Eliminar todos los caracteres de S1
+                }
+                \uElseIf{S1[i - 1] == S2[j - 1]}{
+                    $dp[i][j] \leftarrow dp[i - 1][j - 1]$\; % No se necesita nueva operación si los últimos caracteres coinciden
+                }
+                \Else{
+                    % Calcular el mínimo entre Insertar, Eliminar y Reemplazar
+                    $inserción \leftarrow dp[i][j - 1]$\;
+                    $eliminación \leftarrow dp[i - 1][j]$\;
+                    $sustitución \leftarrow dp[i - 1][j - 1]$\;
+                    $transposición \leftarrow \infty$\;
+
+                    % Verificar si la transposición es posible
+                    \uIf{i > 1 \textbf{and} j > 1 \textbf{and} S1[i - 1] == S2[j - 2] \textbf{and} S1[i - 2] == S2[j - 1]}{
+                        $transposición \leftarrow dp[i - 2][j - 2]$\;
+                    }
+                    % Actualizar el valor de dp con el mínimo
+                    $dp[i][j] \leftarrow 1 + \min(inserción, eliminación, sustitución, transposición)$\;
+                }
+            }
+        }
+        \Return dp[m][n]\; % Retornar la distancia de edición final
+    }
+    \caption{Algoritmo de distancia de ediciónusando programación dinámica}
+    \label{alg:edit_distance_transpose}
+\end{algorithm}
+~\\ \\
+\textbf{\large{Ejemplo de ejecución}}
+
+Supongamos las cadenas $S1 = ``ACB"$ y $S2 = ``ABC"$, sabiendo que los costos para cada operación son los siguientes:
+
+\begin{itemize}
+    \item costo\_sub(a, b) = 2 si $a \neq b$, y 0 si $a = b$
+    \item costo\_ins(b) = 1 para cualquier carácter b.
+    \item costo\_del(a) = 1 para cualquier carácter a.
+    \item costo\_trans(a, b) = 1 para transponer los caracteres adyacentes a y b.
+\end{itemize}
+
+\textbf{Fuerza bruta:}
+\begin{enumerate}
+    \item Comparamos los primeros caracteres: $``A"$ y $``A"$, son iguales, por lo que avanzamos sin costo adicional.
+    \item Comparamos los segundos caracteres: $``C"$ y $``B"$. Aquí se pueden hacer varias operaciones: 
+    \begin{itemize}
+        \item Insertar: Insertar $``B"$ en S1 después de $``A"$, luego tenemos que comparar $``CB"$ con $``BC"$. Costo total hasta este punto: 1 (inserción).
+        \item Eliminar: Eliminar $``C"$ de S1, y comparar $``A"$ con $``BC"$. Costo total hasta este punto: 1 (eliminación).
+        \item Sustituir: Sustituir $``C"$ por $``B"$, luego comparar $``B"$ con $``C"$. Costo total hasta este punto: 2 (sustitución).
+        \item Transponer: Intercambiar $``C"$ y $``B"$ en S1, de modo que las cadenas ahora sean iguales ($``ABC"$ y $``ABC"$). Costo total hasta este punto: 1 (transposición).
+    \end{itemize}
+
+    La operación de transposición es la que tiene el menor costo en este caso.
+
+    \item El costo total mínimo para convertir $``ACB"$ en $``ABC"$ es 1, usando la transposición.
+\end{enumerate}
+
+\textbf{Programación dináica:}
+\begin{enumerate}
+    \item Creamos una matriz de tamaño $(3+1)x(3+1)$ (una fila y columna adicional para el caso de cadenas vacías).
+    \item Inicializamos los casos base, si una de las cadenas es vacía, el costo es igual a la longitud de la otra cadena (inserciones o eliminaciones).
+    \item Rellenamos la matriz utilizando las operaciones posibles (inserción, eliminación, sustitución y transposición) en cada paso, calculando el costo mínimo en cada celda.
+    \item En la celda dp[3][3], que corresponde a la conversión completa de $``ACB"$ en $``ABC"$, el valor es 1, que indica el costo mínimo utilizando transposición.
+\end{enumerate}
+
+
+\noindent \textbf{\large{Complejidad de los algoritmos}}
+
+\textbf{Fuerza bruta:}
+\begin{itemize}
+    \item Temporal: $O(4^n)$, donde n es la longitud de la cadena más larga. Esto se debe a que, en cada posición, hay cuatro opciones (inserción, eliminación, sustitución, transposición), y cada rama se evalúa recursivamente.
+
+    \item Espacial: $O(n)$, ya que el algoritmo de fuerza bruta utiliza la pila de recursión para almacenar las llamadas recursivas. En el peor caso, la profundidad de la pila es proporcional a la longitud de la cadena.
+\end{itemize}
+
+\textbf{Programación dináica:}
+\begin{itemize}
+    \item Termporal: $O(m * n)$, donde m y n son las longitudes de las cadenas S1 y S2. Esto se debe a que llenamos una tabla de m+1 filas y n+1 columnas, evaluando cada celda una sola vez.
+
+    \item Espacial: $O(m * n)$, ya que necesitamos almacenar una matriz de tamaño (m+1) x (n+1) para guardar los resultados intermedios.
+\end{itemize}
+
+\newpage
+\noindent \textbf{\large{Impacto de las transposiciones y los costos variables en la complejidad}}\\
+
+La inclusión de transposiciones y costos variables no afecta la complejidad temporal y espacial de forma significativa en el enfoque de programación dinámica. Las transposiciones simplemente añaden una nueva condición a evaluar en cada paso, pero no aumentan el número de operaciones de forma exponencial.
+
+\noindent Sin embargo, en el enfoque de fuerza bruta, agregar transposiciones incrementa el número de posibilidades en cada paso, lo que puede aumentar el número de ramas en el árbol de recursión. Esto puede hacer que el rendimiento del algoritmo de fuerza bruta empeore aún más.

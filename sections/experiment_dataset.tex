@@ -1,0 +1,54 @@
+\noindent \textbf{\large{Caso 1: Cadenas Vacías}}\\
+\textbf{Cadenas de entrada:} \texttt{$(``", ``")$} \\
+\textbf{Secuencia de operaciones esperada:} Ninguna operación necesaria. \\
+\textbf{Costo total esperado:} 0 \\
+
+\noindent \textbf{\large{Caso 2: Una Cadena Vacía}}\\
+\textbf{Cadenas de entrada:} \texttt{$(``", ``abcdefg")$} \\
+\textbf{Secuencia de operaciones esperada:} Insertar los caracteres de \texttt{$``abcdefg"$} en la primera cadena. \\
+\textbf{Costo total esperado:} 7 (inserciones) \\
+
+\noindent \textbf{\large{Caso 3: Caracteres Repetidos}}\\
+\textbf{Cadenas de entrada:} \texttt{$(``aaaaaaaaaa", ``aaaaaaaa")$} \\
+\textbf{Secuencia de operaciones esperada:} Eliminar dos caracteres de la primera cadena. \\
+\textbf{Costo total esperado:} 2 (eliminaciones) \\
+
+\noindent \textbf{\large{Caso 4: Necesidad de Transposición}}\\
+\textbf{Cadenas de entrada:} \texttt{$(``abba", ``baba")$} \\
+\textbf{Secuencia de operaciones esperada:} Transponer los caracteres en las posiciones 1 y 2. \\
+\textbf{Costo total esperado:} 2 (1 transposición) \\
+
+\noindent \textbf{\large{Caso 5: Sustituciones}}\\
+\textbf{Cadenas de entrada:} \texttt{$(``kitten", ``sitting")$} \\
+\textbf{Secuencia de operaciones esperada:} Sustituir $``k"$ por $``s"$, $``e"$ por $``i"$, insertar $``g"$ al final. \\
+\textbf{Costo total esperado:} 3 (2 sustituciones y 1 inserción) \\
+
+\noindent \textbf{\large{Caso 6: Ningún Carácter en Común}}\\
+\textbf{Cadenas de entrada:} \texttt{$(``abcdefgh", ``ijklmnop")$} \\
+\textbf{Secuencia de operaciones esperada:} Sustituir cada carácter de la primera cadena por el correspondiente en la segunda. \\
+\textbf{Costo total esperado:} 8 (sustituciones) \\
+
+\noindent \textbf{\large{Caso 7: Transposición Parcial}}\\
+\textbf{Cadenas de entrada:} \texttt{$(``abcdef", ``abcfed")$} \\
+\textbf{Secuencia de operaciones esperada:} Sustituir la $``d"$ de la primera cadena por $``f"$ y luego sustituir la última $``f"$ por $``d"$. \\
+\textbf{Costo total esperado:} 2 (sustituciones) \\
+
+\noindent \textbf{\large{Caso 8: Posibles Transposiciones Múltiples}}\\
+\textbf{Cadenas de entrada:} \texttt{$(``longstringtest", ``lontgsritenst")$} \\ 
+\textbf{Secuencia de operaciones esperada:} En la primera cadena, inserta una $``t"$ entre la $``g"$ y $``n"$, luego elimina la siguiente $``t"$, $``n"$ y $``g"$ e inserta una $``n"$ entre la $``e"$ y $``s"$.\\
+\textbf{Costo total esperado:} 5 (2 inserciones y 3 eliminaciones) \\
+
+\noindent \textbf{\large{Caso 9: Cadenas Idénticas}}\\
+\textbf{Cadenas de entrada:} \texttt{$(``abcdefghijklmnop", ``abcdefghijklmnop")$} \\
+\textbf{Secuencia de operaciones esperada:} Ninguna operación necesaria. \\
+\textbf{Costo total esperado:} 0 \\
+
+\noindent \textbf{\large{Caso 10: Subcadena}}\\
+\textbf{Cadenas de entrada:} \texttt{$(``abcdefghijklmnop", ``efghijk")$} \\
+\textbf{Secuencia de operaciones esperada:} Eliminar los caracteres iniciales y finales de la primera cadena. \\
+\textbf{Costo total esperado:} 9 (eliminaciones) \\
+
+\noindent \textbf{\large{Caso 11: Ejemplo Clásico}}\\
+\textbf{Cadenas de entrada:} \texttt{$(``intention", ``execution")$} \\
+\textbf{Secuencia de operaciones esperada:} Sustituir $``i"$ por $``e"$, $``n"$ por $``x"$, $``t"$ por $``c"$, $``t"$ por $``u"$, y agregar $``o"$. \\
+\textbf{Costo total esperado:} 5 (4 sustituciones y 1 inserción) \\

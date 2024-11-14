@@ -1,0 +1,55 @@
+\epigraph{\textit{``Indeed, brute force is a perfectly good technique in many cases; the real question is, can we use brute force in such a way that we avoid the worst-case behavior?''}}{--- \citeauthor{taocv3}, \citeyear{taocv3} \cite{taocv3}}
+
+ El algoritmo realiza una búsqueda recursiva exhaustiva, donde en cada paso calcula los resultados de todas las operaciones posibles y selecciona la que tiene el menor costo. Este enfoque es ineficiente, ya que repite los mismos cálculos para las subcadenas muchas veces. La complejidad del algoritmo crece exponencialmente debido a la gran cantidad de posibles combinaciones que se deben considerar. \\
+
+\begin{algorithm}[H]
+    \SetKwProg{myproc}{Procedure}{}{}
+    \SetKwFunction{EditDistance}{EditDistance}
+    \SetKwFunction{Cases}{Cases}
+    
+    \DontPrintSemicolon
+    \footnotesize
+
+    % Definición del algoritmo principal
+    \myproc{\EditDistance{S1, S2}}{
+        \uIf{LENGTH(S1) es vacía}{
+            \Return LENGTH(S2)\;
+        }
+        \uElseIf{LENGTH(S2) es vacía}{
+            \Return LENGTH(S1)\;
+        }
+        \Return \Cases{S1, S2, 0, 0}\;
+    }
+
+    % Definición de la función auxiliar
+    \myproc{\Cases{S1, S2, i, j}}{
+        \uIf{LENGTH(S1) es igual a i}{
+            \Return LENGTH(S2) - j\;
+        }
+        \uElseIf{LENGTH(S2) es igual a j}{
+            \Return LENGTH(S1) - i\;
+        }
+    
+        $costo \leftarrow 0$\;
+    
+        \uIf{S1[i] == S2[j]}{
+            $costo \leftarrow \Cases{S1, S2, i + 1, j + 1}$\;
+        }
+        \Else{
+            $inserción \leftarrow \Cases{S1, S2, i, j + 1}$\;
+            $eliminación \leftarrow \Cases{S1, S2, i + 1, j}$\;
+            $sustitución \leftarrow \Cases{S1, S2, i + 1, j + 1}$\;
+            $transposición \leftarrow \infty$\;
+    
+            \uIf{i + 1 < ~LENGTH(S1) \textbf{and} j + 1 < ~LENGTH(S2) \textbf{and} S1[i] == S2[j + 1] \textbf{and} S1[i + 1] == S2[j]}{
+                $transposición \leftarrow \Cases{S1, S2, i + 2, j + 2}$\;
+            }
+
+           $costo \leftarrow \min(inserción, eliminación, sustitución, transposición) + 1$\;
+        }
+        \Return costo\;
+    }
+    \caption{Algoritmo con un enfoque de fuerza bruta basado en recursión}
+    \label{alg:mi_algoritmo_1}
+\end{algorithm}
+\newpage

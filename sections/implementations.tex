@@ -1,0 +1,38 @@
+\textbf{Fuerza bruta:}
+
+\begin{enumerate}
+    \item Estructura general
+    \begin{itemize}
+        \item El programa define una función \textit{editDistanceBrute} que implementa la lógica recursiva para calcular la distancia mínima de edición entre dos cadenas, utilizando las operaciones de inserción, eliminación, sustitución y transposición.
+
+        \item La función \textit{main()} lee las cadenas de entrada, llama a \textit{editDistanceBrute()} y muestra el resultado en la consola.
+    \end{itemize}
+
+    \item Funcionamiento de la recursión
+    \begin{itemize}
+        \item La función editDistanceBrute(S1, S2, i, j) compara las subcadenas de S1 y S2 empezando en los índices i y j. Si las cadenas son iguales en las posiciones actuales, la función avanza a la siguiente posición sin costo adicional.
+
+        \item Si los caracteres difieren, la función explora cuatro operaciones posibles, inserción, eliminación, sustitución o transposición.
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Programación dinámica:}
+
+\begin{enumerate}
+    \item Estructura general
+    \begin{itemize}
+        \item La función principal es \textit{editDistanceDP(string S1, string S2)}, que calcula la distancia mínima de edición entre dos cadenas S1 y S2 utilizando una matriz para almacenar los resultados intermedios.
+
+        \item El programa inicializa una matriz bidimensional dp de tamaño (m + 1) x (n + 1), donde m y n son las longitudes de las cadenas S1 y S2, respectivamente.
+    \end{itemize}
+
+    \item Inicialización de los casos base
+    \begin{itemize}
+        \item Si una de las cadenas está vacía, el costo de convertirla en la otra cadena es simplemente el número de inserciones o eliminaciones necesarias. Esto se refleja en la primera fila y columna de la matriz dp.
+    \end{itemize}
+
+    \item Evaluación de las operaciones
+    \begin{itemize}
+        \item Para cada par de caracteres en las cadenas S1 y S2, se calculan las cuatro posibles operaciones, inserción, eliminación, sustitución o transposición.
+    \end{itemize}
+\end{enumerate}
